@@ -3,33 +3,34 @@ let amigos = [];
 
 //-------------------------------------------------------------------------------------Função Adicionar
 function adicionar() {
-    let amigo = document.getElementById('nome-amigo');
+    let amigo = document.getElementById('nome-amigo').value.toUpperCase(); 
     let lista = document.getElementById('lista-amigos');
 
     //-----------------------------------------------------Verificar se vazio
-    if (amigo.value == '') {
+    if (amigo == '') {
         alert('Preencha um nome');
         return;
     }
 
     //-----------------------------------------------------Verificar se consta na lista caixa alta
-    if (amigos.includes(amigo.value)) {
-        alert(`${amigo.value} já existe na lista`);
-        amigo.value = '';
+    if (amigos.includes(amigo)) {
+        alert(`${amigo} já existe na lista`);
+        limparInput();
         return;
     }
 
 
-    amigos.push(amigo.value);
+    amigos.push(amigo);
+    limparInput()
 
     if (lista.textContent == '') {
-        lista.textContent = amigo.value;
+        lista.textContent = amigo;
 
     } else {
-        lista.textContent = lista.textContent + ', ' + amigo.value;
+        lista.textContent = lista.textContent + ', ' + amigo;
         
     }
-    amigo.value = ''
+    amigo = ''
 
     atualizarLista();
     atualizarSorteio();
@@ -70,7 +71,8 @@ function reiniciar() {
     amigos = [];
     document.getElementById('lista-amigos').innerHTML = '';
     document.getElementById('lista-sorteio').innerHTML = '';
-    reiniciar().amigo.value = '';
+    limparInput();
+    
 }
 
 //--------------------------------------------------------Funções de Exclusão e Atualização de nomes da lista
@@ -104,4 +106,8 @@ function atualizarLista() {
         //----------------------------------------------------------------------Adiciona o parágrafo à lista
         lista.appendChild(paragrafo);
     }
+}
+
+function limparInput() {
+    document.getElementById('nome-amigo').value = '';
 }
